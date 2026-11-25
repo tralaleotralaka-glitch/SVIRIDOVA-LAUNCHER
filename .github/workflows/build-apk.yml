@@ -40,7 +40,9 @@ jobs:
       - name: Сборка debug APK
         id: build
         continue-on-error: true
-        run: ./gradlew :app:assembleDebug --stacktrace --no-daemon 2>&1 | tee build.log
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleDebug --stacktrace --no-daemon 2>&1 | tee build.log
 
       - name: Отчёт об ошибках
         if: steps.build.outcome == 'failure'
@@ -71,7 +73,10 @@ jobs:
           SHORT_SHA=$(git rev-parse --short HEAD)
           NAME="NEXUS-launcher-1.0-${SHORT_SHA}"
           echo "name=${NAME}" >> "$GITHUB_OUTPUT"
-          cp app/build/outputs/apk/debug/app-debug.apk "${NAME}.apk"
+          APK=$(find app/build/outputs/apk -name "*.apk" | head -1)
+          echo "Найден APK: ${APK}"
+          test -n "${APK}"
+          cp "${APK}" "${NAME}.apk"
           ls -lh "${NAME}.apk"
 
       - name: Артефакт сборки
