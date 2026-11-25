@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: apk-${{ github.ref }}
@@ -37,9 +38,34 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Сборка debug APK
-        run: ./gradlew :app:assembleDebug --stacktrace --no-daemon
+        id: build
+        continue-on-error: true
+        run: ./gradlew :app:assembleDebug --stacktrace --no-daemon 2>&1 | tee build.log
+
+      - name: Отчёт об ошибках
+        if: steps.build.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          grep -nE "^(e: |w: .*error)|^error:|^FAILURE:|^> Task .* FAILED|Caused by:|^\* What went wrong" build.log \
+            | head -120 > errors.txt
+          if [ ! -s errors.txt ]; then
+            tail -150 build.log > errors.txt
+          fi
+          # Аннотации, чтобы ошибки были видны в gh run view
+          head -15 errors.txt | while IFS= read -r line; do
+            echo "::error file=build.log::$(echo "$line" | tr '\n' ' ' | cut -c1-900)"
+          done
+          ISSUE=$(gh issue list --state open --search 'in:title "build log"' --json number -q '.[0].number' 2>/dev/null)
+          if [ -z "$ISSUE" ] || [ "$ISSUE" = "null" ]; then
+            gh issue create --title "build log" --body-file errors.txt
+          else
+            gh issue comment "$ISSUE" --body-file errors.txt
+          fi
 
       - name: Имя файла
+        if: steps.build.outcome == 'success'
         id: meta
         run: |
           SHORT_SHA=$(git rev-parse --short HEAD)
@@ -49,9 +75,14 @@ jobs:
           ls -lh "${NAME}.apk"
 
       - name: Артефакт сборки
+        if: steps.build.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.meta.outputs.name }}
           path: ${{ steps.meta.outputs.name }}.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Результат сборки
+        if: steps.build.outcome == 'failure'
+        run: exit 1
