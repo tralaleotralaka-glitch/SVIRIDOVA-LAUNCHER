@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Внешний неоновый шестиугольник -->
+    <path
+        android:pathData="M54,22 L80,37 L80,71 L54,86 L28,71 L28,37 Z"
+        android:strokeWidth="2.4"
+        android:strokeColor="#00F0FF"
+        android:fillColor="#00000000" />
+    <!-- Внутренний контур -->
+    <path
+        android:pathData="M54,31 L72,41.5 L72,66.5 L54,77 L36,66.5 L36,41.5 Z"
+        android:strokeWidth="1"
+        android:strokeColor="#6600F0FF"
+        android:fillColor="#00000000" />
+    <!-- Буква N -->
+    <path
+        android:pathData="M46,63 L46,45 M46,45 L62,63 M62,63 L62,45"
+        android:strokeWidth="4"
+        android:strokeColor="#F2FAFF"
+        android:strokeLineCap="square" />
+    <!-- Акцентные узлы -->
+    <path
+        android:pathData="M54,22 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"
+        android:fillColor="#FF2E97" />
+    <path
+        android:pathData="M54,86 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"
+        android:fillColor="#00F0FF" />
+</vector>

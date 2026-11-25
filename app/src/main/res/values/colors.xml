@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nexus_void">#FF05070C</color>
+    <color name="nexus_cyan">#FF00F0FF</color>
+    <color name="text_primary">#FFF2FAFF</color>
+    <color name="text_secondary">#FF8FA6BD</color>
+</resources>
