@@ -90,6 +90,16 @@ jobs:
 
       # APK выкладывается в релиз: файлы релиза хостятся на github.com,
       # поэтому скачивание работает откуда угодно, в отличие от артефактов Actions.
+      - name: Очистка старых APK в релизе
+        if: steps.build.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # В релизе должен остаться только свежий файл.
+          gh release view apk-latest --json assets -q '.assets[].name' 2>/dev/null | while read -r asset; do
+            gh release delete-asset apk-latest "$asset" --yes || true
+          done
+
       - name: Релиз с APK
         if: steps.build.outcome == 'success'
         uses: softprops/action-gh-release@v2
