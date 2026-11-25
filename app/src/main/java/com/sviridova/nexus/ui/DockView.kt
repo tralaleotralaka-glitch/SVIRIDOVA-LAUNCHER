@@ -27,6 +27,9 @@ class DockBar @JvmOverloads constructor(
         setMeasuredDimension(w, resolveSize((92 * d).toInt(), heightMeasureSpec))
     }
 
+    /** Перерисовать после смены акцента или обоев. */
+    fun refreshAccent() = invalidate()
+
     override fun onDraw(canvas: Canvas) {
         val d = resources.displayMetrics.density
         val accent = NexusTheme.accent(context)

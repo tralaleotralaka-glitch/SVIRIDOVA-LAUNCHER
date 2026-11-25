@@ -274,7 +274,7 @@ class SettingsActivity : Activity() {
         )
     }
 
-    private fun card(title: String, value: String? = null, subtitle: String? = null, builder: (LinearLayout) -> Unit = {}) {
+    private fun card(title: String, value: String? = null, subtitle: String? = null, builder: LinearLayout.() -> Unit = {}) {
         val panel = GlassPanel(this).apply {
             cornerRadius = dp(16f).toFloat()
             fillAlpha = 52
@@ -302,7 +302,7 @@ class SettingsActivity : Activity() {
                     .apply { topMargin = dp(3f) }
             )
         }
-        builder(column)
+        column.builder()
         panel.addView(
             column,
             FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)

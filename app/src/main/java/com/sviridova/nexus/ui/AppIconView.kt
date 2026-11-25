@@ -104,7 +104,7 @@ class AppIconView @JvmOverloads constructor(
         if (bitmap != null && !bitmap.isRecycled) {
             canvas.save()
             canvas.clipPath(maskPath)
-            val src = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
+            val src = android.graphics.Rect(0, 0, bitmap.width, bitmap.height)
             // Кадрируем иконку по маске, чтобы ячейки сетки выглядели единообразно.
             canvas.drawBitmap(bitmap, src, rect, iconPaint)
             canvas.restore()
