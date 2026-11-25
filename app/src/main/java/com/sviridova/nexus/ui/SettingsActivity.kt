@@ -92,7 +92,7 @@ class SettingsActivity : Activity() {
     }
 
     private fun buildHeader() {
-        val row = LinearLayout(this).apply {
+        val row = LinearLayout(this@SettingsActivity).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
         }
@@ -114,53 +114,53 @@ class SettingsActivity : Activity() {
         section(getString(R.string.settings_appearance))
 
         card(getString(R.string.settings_accent)) {
-            val row = LinearLayout(this).apply {
+            val row = LinearLayout(this@SettingsActivity).apply {
                 orientation = LinearLayout.HORIZONTAL
                 gravity = Gravity.CENTER_VERTICAL
-                setPadding(0, dp(12f), 0, dp(2f))
+                setPadding(0, this@SettingsActivity.dp(12f), 0, this@SettingsActivity.dp(2f))
             }
             for (accent in Accent.values()) {
                 val selected = Prefs.accent == accent
-                val dot = View(this).apply {
+                val dot = View(this@SettingsActivity).apply {
                     background = GradientDrawable().apply {
                         shape = GradientDrawable.OVAL
                         setColor(accent.color)
-                        setStroke(dp(if (selected) 2.4f else 1f), if (selected) Color.WHITE else withAlpha(accent.color, 90))
+                        setStroke(this@SettingsActivity.dp(if (selected) 2.4f else 1f), if (selected) Color.WHITE else withAlpha(accent.color, 90))
                     }
                     setOnClickListener {
                         Prefs.accentIndex = accent.ordinal
-                        rebuild()
+                        this@SettingsActivity.rebuild()
                     }
                 }
-                row.addView(dot, LinearLayout.LayoutParams(dp(34f), dp(34f)).apply { rightMargin = dp(11f) })
+                row.addView(dot, LinearLayout.LayoutParams(this@SettingsActivity.dp(34f), this@SettingsActivity.dp(34f)).apply { rightMargin = this@SettingsActivity.dp(11f) })
             }
             addView(row)
         }
 
         card(getString(R.string.settings_wallpaper)) {
-            val row = LinearLayout(this).apply {
+            val row = LinearLayout(this@SettingsActivity).apply {
                 orientation = LinearLayout.HORIZONTAL
-                setPadding(0, dp(12f), 0, dp(2f))
+                setPadding(0, this@SettingsActivity.dp(12f), 0, this@SettingsActivity.dp(2f))
             }
             for (style in WallpaperStyle.values()) {
-                row.addView(chip(getString(style.labelRes), Prefs.wallpaper == style) {
+                row.addView(chip(this@SettingsActivity.getString(style.labelRes), Prefs.wallpaper == style) {
                     Prefs.wallpaperIndex = style.ordinal
-                    rebuild()
-                }, chipParams())
+                    this@SettingsActivity.rebuild()
+                }, this@SettingsActivity.chipParams())
             }
             addView(row)
         }
 
         card(getString(R.string.settings_icon_shape)) {
-            val row = LinearLayout(this).apply {
+            val row = LinearLayout(this@SettingsActivity).apply {
                 orientation = LinearLayout.HORIZONTAL
-                setPadding(0, dp(12f), 0, dp(2f))
+                setPadding(0, this@SettingsActivity.dp(12f), 0, this@SettingsActivity.dp(2f))
             }
             for (shape in IconShape.values()) {
-                row.addView(chip(getString(shape.labelRes), Prefs.iconShape == shape) {
+                row.addView(chip(this@SettingsActivity.getString(shape.labelRes), Prefs.iconShape == shape) {
                     Prefs.iconShapeIndex = shape.ordinal
-                    rebuild()
-                }, chipParams())
+                    this@SettingsActivity.rebuild()
+                }, this@SettingsActivity.chipParams())
             }
             addView(row)
         }
@@ -172,29 +172,29 @@ class SettingsActivity : Activity() {
         section(getString(R.string.settings_grid_section))
 
         card(getString(R.string.settings_grid), value = "${Prefs.columns}") {
-            val row = LinearLayout(this).apply {
+            val row = LinearLayout(this@SettingsActivity).apply {
                 orientation = LinearLayout.HORIZONTAL
-                setPadding(0, dp(12f), 0, dp(2f))
+                setPadding(0, this@SettingsActivity.dp(12f), 0, this@SettingsActivity.dp(2f))
             }
             for (cols in 4..6) {
                 val selected = Prefs.columns == cols
-                val cell = TextView(this).apply {
+                val cell = TextView(this@SettingsActivity).apply {
                     text = cols.toString()
                     textSize = 15f
-                    typeface = NexusTheme.displayTypeface(context)
+                    typeface = NexusTheme.displayTypeface(this@SettingsActivity)
                     gravity = Gravity.CENTER
                     setTextColor(if (selected) NexusTheme.PRIMARY else NexusTheme.SECONDARY)
                     background = GradientDrawable().apply {
-                        cornerRadius = dp(10f).toFloat()
+                        cornerRadius = this@SettingsActivity.dp(10f).toFloat()
                         setColor(if (selected) withAlpha(Prefs.accent.color, 46) else Color.argb(24, 255, 255, 255))
-                        setStroke(dp(1f), if (selected) withAlpha(Prefs.accent.color, 220) else Color.argb(30, 255, 255, 255))
+                        setStroke(this@SettingsActivity.dp(1f), if (selected) withAlpha(Prefs.accent.color, 220) else Color.argb(30, 255, 255, 255))
                     }
                     setOnClickListener {
                         Prefs.columns = cols
-                        rebuild()
+                        this@SettingsActivity.rebuild()
                     }
                 }
-                row.addView(cell, LinearLayout.LayoutParams(0, dp(40f), 1f).apply { rightMargin = dp(8f) })
+                row.addView(cell, LinearLayout.LayoutParams(0, this@SettingsActivity.dp(40f), 1f).apply { rightMargin = this@SettingsActivity.dp(8f) })
             }
             addView(row)
         }
@@ -216,10 +216,13 @@ class SettingsActivity : Activity() {
             addView(
                 action(getString(R.string.settings_default_cta), primary = true) {
                     runCatching {
-                        startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                        this@SettingsActivity.startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
                     }
                 },
-                LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40f)).apply { topMargin = dp(12f) }
+                LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    this@SettingsActivity.dp(40f)
+                ).apply { topMargin = this@SettingsActivity.dp(12f) }
             )
         }
 
@@ -231,9 +234,12 @@ class SettingsActivity : Activity() {
                 action("СБРОС", primary = false) {
                     Prefs.reset()
                     android.widget.Toast.makeText(this@SettingsActivity, R.string.settings_reset_done, android.widget.Toast.LENGTH_SHORT).show()
-                    rebuild()
+                    this@SettingsActivity.rebuild()
                 },
-                LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40f)).apply { topMargin = dp(12f) }
+                LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    this@SettingsActivity.dp(40f)
+                ).apply { topMargin = this@SettingsActivity.dp(12f) }
             )
         }
     }
@@ -281,7 +287,7 @@ class SettingsActivity : Activity() {
             setPadding(dp(16f), dp(12f), dp(16f), dp(14f))
         }
         val column = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-        val row = LinearLayout(this).apply {
+        val row = LinearLayout(this@SettingsActivity).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
         }
@@ -321,7 +327,7 @@ class SettingsActivity : Activity() {
             fillAlpha = 52
             setPadding(dp(16f), dp(4f), dp(10f), dp(4f))
         }
-        val row = LinearLayout(this).apply {
+        val row = LinearLayout(this@SettingsActivity).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
             minimumHeight = dp(52f)
@@ -353,9 +359,9 @@ class SettingsActivity : Activity() {
             gravity = Gravity.CENTER
             setTextColor(if (selected) NexusTheme.PRIMARY else NexusTheme.SECONDARY)
             background = GradientDrawable().apply {
-                cornerRadius = dp(10f).toFloat()
+                cornerRadius = this@SettingsActivity.dp(10f).toFloat()
                 setColor(if (selected) withAlpha(Prefs.accent.color, 46) else Color.argb(24, 255, 255, 255))
-                setStroke(dp(1f), if (selected) withAlpha(Prefs.accent.color, 220) else Color.argb(30, 255, 255, 255))
+                setStroke(this@SettingsActivity.dp(1f), if (selected) withAlpha(Prefs.accent.color, 220) else Color.argb(30, 255, 255, 255))
             }
             setOnClickListener { onClick() }
         }
@@ -373,9 +379,9 @@ class SettingsActivity : Activity() {
         ).apply {
             gravity = Gravity.CENTER
             background = GradientDrawable().apply {
-                cornerRadius = dp(10f).toFloat()
+                cornerRadius = this@SettingsActivity.dp(10f).toFloat()
                 setColor(if (primary) withAlpha(Prefs.accent.color, 36) else Color.argb(26, 255, 255, 255))
-                setStroke(dp(1f), if (primary) withAlpha(Prefs.accent.color, 200) else Color.argb(60, 255, 255, 255))
+                setStroke(this@SettingsActivity.dp(1f), if (primary) withAlpha(Prefs.accent.color, 200) else Color.argb(60, 255, 255, 255))
             }
             setOnClickListener { onClick() }
         }
