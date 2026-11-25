@@ -88,6 +88,29 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      # APK выкладывается в релиз: файлы релиза хостятся на github.com,
+      # поэтому скачивание работает откуда угодно, в отличие от артефактов Actions.
+      - name: Релиз с APK
+        if: steps.build.outcome == 'success'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: "NEXUS — последняя сборка"
+          body: |
+            Автоматическая сборка лаунчера NEXUS.
+
+            **Установка**
+            1. Скачайте `.apk` из списка «Assets» ниже (файл `app-debug.apk`).
+            2. Разрешите установку из этого источника.
+            3. Нажмите «Домой» и выберите **NEXUS**.
+
+            Сборка: `${{ steps.meta.outputs.name }}`
+            Коммит: `${{ github.sha }}`
+          files: ${{ steps.meta.outputs.name }}.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Результат сборки
         if: steps.build.outcome == 'failure'
         run: exit 1
