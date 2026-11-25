@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Сохраняем настройки и заметки в облачный бэкап Android. -->
+<full-backup-content>
+    <include domain="sharedpref" path="nexus_prefs.xml" />
+    <include domain="sharedpref" path="nexus_notes.xml" />
+</full-backup-content>

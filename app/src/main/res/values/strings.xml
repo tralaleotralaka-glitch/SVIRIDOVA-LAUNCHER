@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NEXUS</string>
+    <string name="settings_title">Настройки</string>
+
+    <!-- Search -->
+    <string name="search_label">ПОИСК ПРИЛОЖЕНИЙ</string>
+
+    <!-- Home -->
+
+    <!-- Weather -->
+
+    <!-- Widgets -->
+    <string name="weather_label">Погода</string>
+    <string name="weather_loading">Синхронизация…</string>
+    <string name="weather_permission">Включите геолокацию</string>
+    <string name="weather_permission_hint">для живых данных</string>
+    <string name="weather_wind">Ветер %1$d км/ч</string>
+    <string name="weather_humidity">Влажность %1$d%%</string>
+    <string name="battery_title">Заряд</string>
+    <string name="battery_charging">Зарядка</string>
+    <string name="battery_low">Низкий</string>
+    <string name="battery_normal">Норма</string>
+    <string name="battery_unknown">Нет данных</string>
+    <string name="notes_title">Заметки</string>
+    <string name="notes_empty">Пусто</string>
+    <plurals name="notes_count">
+        <item quantity="one">%d запись</item>
+        <item quantity="few">%d записи</item>
+        <item quantity="many">%d записей</item>
+        <item quantity="other">%d записей</item>
+    </plurals>
+
+    <string name="search_title">Поиск</string>
+    <string name="search_empty">Ничего не найдено</string>
+    <string name="notes_hint">Новая заметка…</string>
+    <string name="notes_panel_empty">Пусто. Добавьте первую запись.</string>
+
+    <!-- App menu -->
+    <string name="app_info">Информация о приложении</string>
+    <string name="uninstall">Удалить</string>
+    <string name="close">Закрыть</string>
+    <string name="app_launch_failed">Не удалось открыть приложение</string>
+    <string name="apps_empty">Приложения не найдены</string>
+
+    <!-- Settings sections -->
+    <string name="settings_appearance">ВНЕШНИЙ ВИД</string>
+    <string name="settings_grid_section">СЕТКА И ЭЛЕМЕНТЫ</string>
+    <string name="settings_behavior">ПОВЕДЕНИЕ</string>
+    <string name="settings_about">О ПРИЛОЖЕНИИ</string>
+
+    <string name="settings_accent">Акцентный цвет</string>
+    <string name="settings_wallpaper">Обои</string>
+    <string name="settings_icon_shape">Форма иконок</string>
+    <string name="settings_glow">Неоновое свечение</string>
+    <string name="settings_grid">Количество столбцов</string>
+    <string name="settings_search_bar">Строка поиска</string>
+    <string name="settings_clock_seconds">Секунды на часах</string>
+    <string name="settings_hide_labels">Скрывать подписи</string>
+    <string name="settings_haptics">Вибрация</string>
+    <string name="settings_default_launcher">Лаунчер по умолчанию</string>
+    <string name="settings_default_hint">Назначить NEXUS домашним экраном</string>
+    <string name="settings_default_cta">НАЗНАЧИТЬ</string>
+    <string name="settings_reset">Сбросить настройки</string>
+    <string name="settings_reset_done">Настройки сброшены</string>
+    <string name="settings_version">ВЕРСИЯ</string>
+    <string name="settings_made_for">СИСТЕМА NEXUS</string>
+    <string name="settings_tip">Удерживайте иконку приложения, чтобы открыть системное меню</string>
+    <string name="settings_reset_hint">Вернуть внешний вид и расположение к заводским значениям</string>
+
+    <!-- Icon shapes -->
+    <string name="shape_squircle">Скруглённый</string>
+    <string name="shape_circle">Круг</string>
+    <string name="shape_square">Квадрат</string>
+    <string name="shape_hexagon">Гексагон</string>
+
+    <!-- Wallpapers -->
+    <string name="wall_grid">Сетка</string>
+    <string name="wall_aurora">Аврора</string>
+    <string name="wall_matrix">Матрица</string>
+    <string name="wall_particles">Частицы</string>
+    <string name="wall_plain">Фон</string>
+
+    <!-- Accents -->
+    <string name="accent_cyan">Циан</string>
+    <string name="accent_magenta">Магента</string>
+    <string name="accent_lime">Лайм</string>
+    <string name="accent_amber">Янтарь</string>
+    <string name="accent_violet">Фиолет</string>
+    <string name="accent_ice">Лёд</string>
+</resources>
